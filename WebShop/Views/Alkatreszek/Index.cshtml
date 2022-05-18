@@ -1,0 +1,72 @@
+﻿@model WebShop.Models.Kereso
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container d-flex justify-content-center align-content-center mt-2 mb-3">
+    <div class="row">
+        <div class="col-lg">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1>Alkatrészek</h1>
+                    <p>
+                        <a asp-action="Create" class="btn btn-info">Új létrehozása</a>
+                    </p>
+                    <form asp-controller="Alkatreszek" asp-action="Index" method="get">
+                        <h4>Megnevezés:</h4>
+                        <input asp-for="Megnevezes" class="form-control"/>
+                        <h4>Típus:</h4>
+                        <select asp-for="Tipus" asp-items="Model.TipusLista" class="form-control">
+                            <option value="">Összes</option>
+                        </select>
+                        <button type="submit" class="btn btn-info mt-2">Keres</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AlkatreszLista[0].Megnevezes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlkatreszLista[0].Gyarto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlkatreszLista[0].Tipus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlkatreszLista[0].Ar)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AlkatreszLista) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Megnevezes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gyarto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ar)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Szerkeszt</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-success">Részletek</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Töröl</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
